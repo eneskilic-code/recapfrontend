@@ -1,0 +1,58 @@
+<div class="card text-dark bg-white  "  >
+  
+  <div class="card-body">
+    <div class="row  ">
+  
+      <!-- <div class="col-7" >
+        <app-car-filter></app-car-filter>
+      </div> -->
+      <div class="  " style="float: left; ">
+        <label for="filterText" class="form-label"> <strong>Araç ara:</strong> </label>
+        <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Araç ismi giriniz..">
+      </div>
+      <div *ngIf="filterText" class="alert alert-primary" >
+        {{filterText}} aradınız..
+      </div>
+
+      </div>
+   
+  </div>
+</div>
+
+
+<div class="row">
+    <div 
+    *ngFor="let carDetail of carDetails | filterPipe:filterText" 
+     class="card"
+     style="width: 18rem">
+
+
+     <img  [src]= "carDetail.images.length !== 0 
+        ? 'https://localhost:44364/'+ carDetail.images[0] 
+        : 'https://localhost:44364//Images/default.jpg'"
+        class="card-img-top"
+        alt=""  />
+
+        <div class="card-body">
+            <h5 class="card-title text-center">
+              {{ carDetail.brandName }} 
+            </h5>
+            <p class="card-text text-center">{{ carDetail.description }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+
+        <li class="list-group-item text-center">{{ carDetail.colorName }}</li>
+        <li class="list-group-item text-center">{{ carDetail.modelYear }}</li>
+        <li class="list-group-item text-center">{{ carDetail.dailyPrice }} &#8378;</li>
+      </ul>
+      <div class="card-body d-grid gap-2 col-6 mx-auto">
+        <button
+          type="button" 
+
+          routerLink="/cars/detail/{{ carDetail.id }}"
+        
+          class="btn btn-primary">Details
+        </button>
+      </div>
+    </div>
+    </div>
